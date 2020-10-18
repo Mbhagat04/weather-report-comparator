@@ -26,16 +26,18 @@ public class TestApi extends BaseTest {
         ResponseBody response_body = response.getBody();
         apiWeather.setCity(response_body.jsonPath().getString("name"));
         apiWeather.setCondition(response_body.jsonPath().getString("weather[0].main"));
-        apiWeather.setTemperatureInDegree(Integer.parseInt(response_body.jsonPath().getString("main.temp").substring(0,1)));
+        apiWeather.setTemperatureInDegree(Integer.parseInt(response_body.jsonPath().getString("main.temp").substring(0,2)));
         apiWeather.setHumidity(Integer.parseInt(response_body.jsonPath().getString("main.humidity")));
         apiWeather.setWind(response_body.jsonPath().getString("wind.speed"));
 
         Assert.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
         response = RestAssured.given()
                 .then().get(url_fahrenheit);
-        apiWeather.setTemperatureInFahrenheit(Integer.parseInt(response.getBody().jsonPath().getString("main.temp").substring(0,1)));
+        apiWeather.setTemperatureInFahrenheit(Integer.parseInt(response.getBody().jsonPath().getString("main.temp").substring(0,2)));
 
         Assert.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
+
+        System.out.println(apiWeather);
     }
 
 }
