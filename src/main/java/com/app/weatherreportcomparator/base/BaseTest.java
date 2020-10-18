@@ -21,6 +21,9 @@ public class BaseTest {
     public static WebDriverWait wait;
     public static Config testconfig;
     public static Weather uiWeather;
+    public static Weather apiWeather;
+    public static String url_celsius;
+    public static String url_fahrenheit;
     private long IMPLICIT_WAIT = 20;
     private long PAGE_LOAD_WAIT = 20;
 
@@ -30,24 +33,25 @@ public class BaseTest {
         String testMethod = appMode.name().toLowerCase();
         testconfig = testconfig.getConfig(testMethod.toLowerCase()).withFallback(testconfig);
         uiWeather= new Weather();
+        apiWeather= new Weather();
     }
 
     public void initializeUi(){
         String browserName = testconfig.getString("browsername");
+        System.out.println(browserName);
         if(browserName.equalsIgnoreCase("chrome")) {
             System.setProperty("webdriver.chrome.driver","src\\main\\resources\\driver\\chromedriver.exe");
             webDriver = new ChromeDriver();
-            log.info("Loaded Chrome Driver");
+            System.out.println("Loaded Chrome Driver");
         }
         else if(browserName.equalsIgnoreCase("firefox")) {
             System.setProperty("webdriver.gecko.driver","src\\main\\resources\\driver\\geckodriver.exe");
             webDriver = new FirefoxDriver();
             log.info("Loaded with Firefox");
         }
-
+        wait = new WebDriverWait(webDriver, 10);
         webDriver.manage().window().maximize();
         webDriver.manage().deleteAllCookies();
-        wait = new WebDriverWait(webDriver, 10);
         webDriver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
         webDriver.manage().timeouts().pageLoadTimeout(PAGE_LOAD_WAIT, TimeUnit.SECONDS);
         webDriver.get(testconfig.getString("hosturl"));
@@ -59,6 +63,20 @@ public class BaseTest {
         webDriver.quit();
     }
 
+    public void initializeApi() {
+        apiWeather = new Weather();
+        url_celsius = testconfig.getString("baseuri") +
+                String.format(testconfig.getString("basepath")
+                        ,testconfig.getString("city"),testconfig.getString("api_key")) +
+                testconfig.getString("units_celsius");
+
+        url_fahrenheit = testconfig.getString("baseuri") +
+                String.format(testconfig.getString("basepath")
+                        ,testconfig.getString("city"),testconfig.getString("api_key")) +
+                testconfig.getString("units_celsius");
+
+
+    }
 
 }
 

@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="example suite 1" verbose="1" >
-    <test name="Regression suite 1" >
+<suite name="Test Automation Test Suite">
+    <test name="UI Test Case">
         <classes>
-            <class name="com.app.weatherreportcomparator.integration.ui.TestUi"/>
-            <!--<class name="com.first.example.demoTwo"/>
-            <class name="com.second.example.demoThree"/>-->
+            <class name="com.app.weatherreportcomparator.integration.TestUi"></class>
         </classes>
     </test>
+    <test name="API Test Case">
+        <classes>
+            <class name="com.app.weatherreportcomparator.integration.TestApi"></class>
+        </classes>
+    </test>
+    <test name="Comparator Test Case">
+        <classes>
+            <class name="com.app.weatherreportcomparator.integration.TestComparator"></class>
+        </classes>
+    </test>
+
 </suite>
