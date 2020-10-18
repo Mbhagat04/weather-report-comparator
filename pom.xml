@@ -40,12 +40,19 @@
             <artifactId>selenium-java</artifactId>
             <version>${selenium.version}</version>
         </dependency>
-            <!--test-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+        </dependency>
+
+
+
+        <!--test-->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.3.0</version>
-            <scope>test</scope>
 
         </dependency>
     </dependencies>
@@ -61,11 +68,15 @@
                 </configuration>
             </plugin>
             <plugin>
-
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M1</version>
                 <configuration>
+
+                    <systemPropertyVariables>
+                        <testng.dtd.http>true</testng.dtd.http>
+                    </systemPropertyVariables>
+
                     <suiteXmlFiles>
                         <suiteXmlFile>src\test\resources\testng.xml</suiteXmlFile>
                     </suiteXmlFiles>
