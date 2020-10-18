@@ -2,7 +2,6 @@ package com.app.weatherreportcomparator.pages;
 
 import com.app.weatherreportcomparator.base.BaseTest;
 import com.app.weatherreportcomparator.domain.AppMode;
-import com.app.weatherreportcomparator.domain.Weather;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -46,8 +45,8 @@ public class WeatherPage extends BaseTest {
         uiWeather.setCity(weather_container.split("\n")[0]);
         uiWeather.setCondition(weather_container.split("\n")[1].split(":")[1]);
         uiWeather.setWind(weather_container.split("\n")[2].split(":")[1]);
-        uiWeather.setHumidity(weather_container.split("\n")[3].split(":")[1]);
-        uiWeather.setTemperatureInDegree(weather_container.split("\n")[4].split(":")[1]);
-        uiWeather.setTemperatureInFahrenheit(weather_container.split("\n")[5].split(":")[1]);
+        uiWeather.setHumidity(Integer.parseInt(weather_container.split("\n")[3].split(":")[1].replace("%","").trim()));
+        uiWeather.setTemperatureInDegree(Integer.parseInt(weather_container.split("\n")[4].split(":")[1].trim()));
+        uiWeather.setTemperatureInFahrenheit(Integer.parseInt(weather_container.split("\n")[5].split(":")[1].trim()));
     }
 }
